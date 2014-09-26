@@ -2,6 +2,10 @@
 {
 	background-image: url(../images/close.png);
 }
+.icon-print
+{
+	background-image: url(../images/print.png);
+}
 a.redmine-close-button
 {
 	display: none;
