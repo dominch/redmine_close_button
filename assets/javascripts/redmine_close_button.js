@@ -28,9 +28,9 @@
 					}
 				}
 			}
-			if (!needCloseButton) {
-				return;
-			}
+			
+			
+			
 			var f = $('#issue-form');
 			var areas = $('div#content>div.contextual:has(a.icon)');
 			if (f.length === 0 || areas.length === 0) {
@@ -42,18 +42,37 @@
 				done_ratio.val(100);
 				f.submit();
 			};
+			
+			var printer = function(e) {
+				
+			};
+			
 			var closeButtonTemplate = $('a.redmine-close-button');
+			var printButtonTemplate = $('a.redmine-print-button');
 			areas.each(function() {
 				var closeButton = closeButtonTemplate
 					.clone()
 					.css('display', 'inline')
 					.click(closer);
+				var printButton = printButtonTemplate
+					.clone()
+					.css('display', 'inline')
+					.click(printer);
 
 				var delButton = $(this).find('a.icon-del');
 				if (delButton.length > 0) {
+					if (needCloseButton) {
 					closeButton.insertBefore(delButton);
+					}
+					printButton.insertBefore(delButton);
+					
 				} else {
+					if (needCloseButton) {
 					$(this).append(closeButton);
+					printButton.insertBefore(closeButton);
+					} else {
+					$(this).append(printButton);
+					}
 				}
 			});
 		});
@@ -84,9 +103,7 @@
 					}
 				}
 			}
-			if (!needCloseButton) {
-				return;
-			}
+			
 			var f = $('issue-form');
 			var all_areas = $$('div#content>div.contextual');
 			var areas = [];
@@ -107,17 +124,31 @@
 				}
 				f.submit();
 			};
+			var printer = function(e) {
+				
+			};
 			var closeButtonTemplate = $$('a.redmine-close-button')[0];
+			var printButtonTemplate = $$('a.redmine-print-button')[0];
 			for (ai = 0; ai < areas.length; ai++) {
 				var area = areas[ai];
 				var closeButton = closeButtonTemplate.cloneNode(true);
 				closeButton.style.display = 'inline';
 				closeButton.observe('click', closer);
+				var printButton = printButtonTemplate.cloneNode(true);
+				printButton.style.display = 'inline';
+				printButton.observe('click', closer);
 				var delButton = area.select('a.icon-del');
 				if (delButton.length > 0) {
+					if (needCloseButton) {
 					delButton[0].insert({ before: closeButton });
+					delButton[0].insert({ before: printerButton });			
+					}
+					
 				} else {
+					if (needCloseButton) {
 					area.appendChild(closeButton);
+					}
+					area.appendChild(printButton);
 				}
 			}
 		});
